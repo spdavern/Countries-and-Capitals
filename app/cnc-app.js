@@ -1,4 +1,8 @@
 var myApp = angular.module('cncApp', ["ui.router", "ngAnimate"]);
+myApp.constant('VERSION', "0.1");
+myApp.run(function(VERSION, $rootScope){
+	 	$rootScope.version = VERSION;
+	 });
 myApp.config(function($stateProvider, $urlRouterProvider) {
 	//
 	// For any unmatched url, redirect to /
@@ -10,4 +14,4 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 			url: "/",
 			templateUrl: "partials/home/home.html"
 		})
-})
+});
