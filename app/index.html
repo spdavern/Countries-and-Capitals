@@ -17,8 +17,8 @@
 	<footer>
 		<div class="h3 text-center">
 			<p>
-				<button type="button" class="btn btn-default">Home</button>
-				<button type="button" class="btn btn-default">Browse Countries</button>
+				<button type="button" class="btn btn-default" ng-hide="$state.current.name == 'home'" ng-click="$state.go('home')">Home</button>
+				<button type="button" class="btn btn-default" ng-hide="$state.current.name == 'countries'" ng-click="$state.go('countries')">Browse Countries</button>
 			</p>
 		</div>
 	</footer>
