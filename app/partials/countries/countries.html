@@ -1,8 +1,37 @@
-<div class="container">
+<div class="container" ng-controller="countriesDataCtrl">
 	<br>
 	<div class="col-sm-1"></div>
 	<div class="col-sm-10">
-		<div class="row">
-			Countries data
-		</div>
+	<div class="row fixed-table">
+	<div class="table-content">
+		<table class="table table-bordered table-striped table-hover table-fixed-header" id="mytable">
+			<thead class="header">
+				<th>Name</th>
+				<th>Capital</th>
+				<th>Area (km^2)</th>
+				<th>Population</th>
+				<th>Continent</th>
+				<th>Currency</th>
+			</thead>
+			<tbody>
+	<!-- TODO: https://docs.angularjs.org/api/ng/filter/orderBy -->
+				<tr ng-repeat="country in countries | orderBy:'countryname'">
+					<td>{{country.countryname}}</td>
+					<td ng-if="!jQuery.isEmptyObject(country.capital)">{{country.capital}}</td>
+					<td class="text-right">{{country.areainsqkm | number}}</td>
+					<td class="text-right">{{country.population | number}}</td>
+					<td>{{country.continentname}}</td>
+					<td class="text-center">{{country.currencycode}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	</div>
+	</div>
 </div>
+// <script language="javascript" type="text/javascript">
+// 	$(document).ready(function(){
+// 		// make the header fixed on scroll
+// 		$('.table-fixed-header').fixedHeader();
+// 	});
+// </script>

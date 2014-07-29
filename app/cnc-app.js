@@ -29,3 +29,30 @@ myApp.factory('cncData', ['VERSION',
 	 	Data.version = VERSION;
 		return Data		
 	}]);
+myApp.controller('countriesDataCtrl', ['$scope', '$http', 'cncData',
+	function($scope, $http, cncData){
+		var url = "http://api.geonames.org/countryInfo?username=sdavern"
+		$http({
+			method: 'GET',
+			url: url,
+			cache: true
+		}).success(function(results) {
+			$scope.countries = xml2json.parser(results).geonames.country;
+			// if (results.meta.code == 200) {
+			// 	if (results.geonames.length > 0) {
+			// 		$scope.haveCountryData = true;
+			// 		$scope.message = 'Have data for ' + results.geonames.length 
+			// 			+ ' countries.';
+			// 		$scope.countries = results.geonames
+			// 	} else {
+			// 		$scope.haveCountryData = true;
+			// 		$scope.message = 'No countries returned.'
+			// 	}
+			// } else {
+			// 	$scope.message = 'Fetch unsuccessful. Message returned: ' 
+			// 		+ results.meta.error_message
+			// }
+		}).error(function() {
+			$scope.message = "";
+		})
+}])
