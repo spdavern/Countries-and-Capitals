@@ -16,11 +16,15 @@ myApp.config( ['$stateProvider', '$urlRouterProvider',
 	$stateProvider
 		.state("home", {
 			url: "/",
-			templateUrl: "partials/home/home.html",
+			templateUrl: "partials/home/home.html"
 		})
 		.state("countries", {
 			url: "/countries",
-			templateUrl: "partials/countries/countries.html",
+			templateUrl: "partials/countries/countries.html"
+		})
+		.state("countryDetail", {
+			url: "/countries/:countryCode",
+			templateUrl: "partials/country/detail.html"
 		})
 }]);
 myApp.factory('cncData', ['VERSION',
@@ -29,8 +33,8 @@ myApp.factory('cncData', ['VERSION',
 	 	Data.version = VERSION;
 		return Data		
 	}]);
-myApp.controller('countriesDataCtrl', ['$scope', '$http', 'cncData',
-	function($scope, $http, cncData){
+myApp.controller('countriesDataCtrl', ['$scope', '$http', 'cncData', '$state', '$stateParams',
+	function($scope, $http, cncData, $state, $stateParams){
 		var url = "http://api.geonames.org/countryInfo?username=sdavern"
 		$http({
 			method: 'GET',
