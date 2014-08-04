@@ -15,15 +15,13 @@
 			</thead>
 			<tbody>
 	<!-- TODO: https://docs.angularjs.org/api/ng/filter/orderBy -->
-				<tr ng-repeat="country in countries | orderBy:'countryname'" ng-click="$state.go('countryDetail', {'countryCode': country.countrycode})">
-					<td>{{country.countryname}}</td>
-					<!-- TODO: replace {   } with "" -->
+				<tr ng-repeat="country in countries | orderBy:'countryName'" ng-click="gotoDetail(country.countryCode, country.i)">
+					<td>{{country.i}}: {{country.countryName}}</td>
 					<td>{{country.capital}}</td>
-					<td class="text-right">{{country.areainsqkm | number}}</td>
+					<td class="text-right">{{country.areaInSqKm | number}}</td>
 					<td class="text-right">{{country.population | number}}</td>
-					<!-- TODO: replace {   } with "" -->
-					<td>{{country.continentname}}</td>
-					<td class="text-center">{{country.currencycode}}</td>
+					<td>{{country.continentName}}</td>
+					<td class="text-center">{{country.currencyCode}}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -31,11 +29,11 @@
 	</div>
 	</div>
 </div>
-// <script language="javascript" type="text/javascript">
+<script language="javascript" type="text/javascript">
 // jQuery approach to fixed table headers: 
 //		https://gist.github.com/flaviaza/3763015
 // 	$(document).ready(function(){
 // 		// make the header fixed on scroll
 // 		$('.table-fixed-header').fixedHeader();
 // 	});
-// </script>
+</script>

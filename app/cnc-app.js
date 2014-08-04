@@ -1,10 +1,10 @@
 var myApp = angular.module('cncApp', ['ui.router', 'ngAnimate']);
 myApp.constant('VERSION', "0.2");
-myApp.run( ['$rootScope', 'cncData', '$state', '$stateParams',
-			function($rootScope, cncData, $state, $stateParams) {
-				$rootScope.data = cncData;
-				$rootScope.$state = $state;
-				$rootScope.$stateParams = $stateParams;
+myApp.run( ['$rootScope', '$state', '$stateParams',
+	function($rootScope, $state, $stateParams) {
+		//This initialization function enables button hiding.
+		$rootScope.$state = $state;
+		$rootScope.$stateParams = $stateParams;
 }]);
 myApp.config( ['$stateProvider', '$urlRouterProvider',
 	function($stateProvider, $urlRouterProvider) {
@@ -24,39 +24,23 @@ myApp.config( ['$stateProvider', '$urlRouterProvider',
 		})
 		.state("countryDetail", {
 			url: "/countries/:countryCode",
-			templateUrl: "partials/country/detail.html"
-		})
+			templateUrl: "partials/country/detail.html",
+			controller: 'detailCtrl'
+			})
 }]);
-myApp.factory('cncData', ['VERSION',
-	function(VERSION) {
+myApp.controller('appCtrl', ['cncData',
+	function(cncData){
+		//This controller instantiates cncData which causes the 
+		//initial GET of the countries data.
+}]);
+myApp.factory('cncData', ['VERSION', 'geonamesFactory',
+	function(VERSION, geonamesFactory) {
 		var Data = {};
 	 	Data.version = VERSION;
+	 	geonamesFactory.getCountriesInfo().then(function(result) {
+	 		return Data.countries = result;
+	 	});
+	 	Data.getCityInfo = geonamesFactory.getCityInfo;
+	 	Data.getNeighbors = geonamesFactory.getNeighbors;
 		return Data		
-	}]);
-myApp.controller('countriesDataCtrl', ['$scope', '$http', 'cncData', '$state', '$stateParams',
-	function($scope, $http, cncData, $state, $stateParams){
-		var url = "http://api.geonames.org/countryInfo?username=sdavern"
-		$http({
-			method: 'GET',
-			url: url,
-			cache: true
-		}).success(function(results) {
-			$scope.countries = xml2json.parser(results).geonames.country;
-			// if (results.meta.code == 200) {
-			// 	if (results.geonames.length > 0) {
-			// 		$scope.haveCountryData = true;
-			// 		$scope.message = 'Have data for ' + results.geonames.length 
-			// 			+ ' countries.';
-			// 		$scope.countries = results.geonames
-			// 	} else {
-			// 		$scope.haveCountryData = true;
-			// 		$scope.message = 'No countries returned.'
-			// 	}
-			// } else {
-			// 	$scope.message = 'Fetch unsuccessful. Message returned: ' 
-			// 		+ results.meta.error_message
-			// }
-		}).error(function() {
-			$scope.message = "";
-		})
-}])
+}]);

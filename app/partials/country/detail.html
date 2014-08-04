@@ -1,25 +1,29 @@
-<div class="countainer row">
-	<div class="col-sm-4"></div>
-	<div class="col-sm-4">
-		<div class="row">
-			<p>Name</p>
-			<div class="col-sm-6">
-				<p class="text-right">Population of Country:</p>
-				<p class="text-right">Area:</p>
-				<p class="text-right">Capital:</p>
-				<p class="text-right">Population:</p>
-				<p class="text-right">n neighbors:</p>
-			</div>
-			<div class="col-sm-6">
-				<p>1</p>
-				<p>1 square km</p>
-				<p>place</p>
-				<p>1</p>
-				<p>list</p>
-			</div>
+<div class="countainer row text-center">
+	<p class="h1">{{country.countryName}}</p>
+	<div class="row">
+		<div class="col-xs-6">
+			<p class="text-right">Population of Country:</p>
+			<p class="text-right">Area:</p>
+			<p class="text-right">Capital:</p>
+			<p class="text-right">Population:</p>
+			<p class="text-right">n neighbors:</p>
 		</div>
-		<div class="row text-center">
-			country image    Flag
+		<div class="col-xs-6">
+			<p class="text-left">{{country.population | number}}</p>
+			<p class="text-left">{{country.areaInSqKm | number}} square km</p>
+			<p class="text-left">{{country.capital}}</p>
+			<p class="text-left">{{capital.population}}</p>
+			<p class="text-left">list</p>
+		</div>
+	</div>
+	<br><br>
+	<div class="row">
+        <div class="col-xs-1"></div>
+		<div class="col-xs-5 fixed text-right">
+			<img ng-src="http://www.geonames.org/img/country/250/{{map}}.png">
+		</div>
+		<div class="col-xs-6 fixed text-left">
+			<img class="flag" ng-src="http://www.geonames.org/flags/x/{{flag}}.gif">
 		</div>
 	</div>
 </div>
