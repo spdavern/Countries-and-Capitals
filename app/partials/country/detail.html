@@ -6,14 +6,18 @@
 			<p class="text-right">Area:</p>
 			<p class="text-right">Capital:</p>
 			<p class="text-right">Population:</p>
-			<p class="text-right">n neighbors:</p>
+			<p class="text-right">{{numNeighbors}} neighbors:</p>
 		</div>
 		<div class="col-xs-6">
 			<p class="text-left">{{country.population | number}}</p>
 			<p class="text-left">{{country.areaInSqKm | number}} square km</p>
 			<p class="text-left">{{country.capital}}</p>
-			<p class="text-left">{{capital.population}}</p>
-			<p class="text-left">list</p>
+			<p class="text-left">{{capital.population | number}}</p>
+			<p class="text-left">
+				<span ng-repeat="neighbor in neighborList">
+					<a ng-click="gotoDetail(neighbor.countryCode, neighbor.i)">{{neighbor.countryName}}</a>, 
+				</span>
+			</p>
 		</div>
 	</div>
 	<br><br>

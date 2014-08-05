@@ -1,12 +1,21 @@
 angular.module('cncApp').controller('detailCtrl', 
     ['$scope', 'cncData', '$state', '$stateParams',
     function($scope, cncData, $state, $stateParams){
-        $scope.country = cncData.countries[cncData.index];
+        $scope.country = cncData.country;
         $scope.flag = $stateParams.countryCode.toLowerCase();
         $scope.map = $stateParams.countryCode.toUpperCase();
-        // $scope.capital = cncData.getCityInfo($scope.country.capital);
-        cncData.getCityInfo($scope.country.capital).then(function(result){
-            return $scope.capital = result;
+        cncData.getCapitalInfo($stateParams.countryCode.toUpperCase()).then(function(result){
+            $scope.capital = result;
         });
-        console.log($scope.capital);
+        cncData.getNeighbors($stateParams.countryCode.toUpperCase()).then(function(result){
+            $scope.numNeighbors = result.data.totalResultsCount;
+            $scope.neighborList = result.data.geonames;
+            for (i=0; i<$scope.neighborList.length; i++) {
+                $scope.neighborList[i].i = i;
+            };
+        });
+        $scope.gotoDetail = function(countryCode, index){
+            cncData.country = $scope.neighborList[index];
+            $state.go('countryDetail', {'countryCode':countryCode});
+        }
   }])

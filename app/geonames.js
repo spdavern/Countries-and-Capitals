@@ -24,15 +24,14 @@ angular.module('cncApp').factory('geonamesFactory',
             });
             return d.promise;
         },
-        getNeighbors: function(geonamesId){
-            var url = PrimaryUrl + "neighborsJSON";
+        getNeighbors: function(countryCode){
+            var url = PrimaryUrl + "neighboursJSON";
             var request = {
                 callback: 'JSON_CALLBACK',
-                formatted: true,
-                geonamesId: geonamesId,
+                country: countryCode,
                 username: username
             };
-            $http({
+            return $http({
                 method: 'JSONP',
                 url: url,
                 params: request,
@@ -45,14 +44,17 @@ angular.module('cncApp').factory('geonamesFactory',
                 }
             })
         },
-        getCityInfo: function(cityName) {
+        getCapitalInfo: function(countryCode) {
             var d = $q.defer();
-            encodedName = encodeURIComponent(cityName).replace("%20","+");
+            // encodedName = encodeURIComponent(cityName).replace("%20","+");
             // console.log("'"+encodedName+"'");
             var url = PrimaryUrl + "searchJSON";
             var request = {
                 callback: 'JSON_CALLBACK',
-                q: encodedName,
+                q: "capital",
+                formatted: true,
+                country: countryCode,
+                maxRows: 1,
                 username: username
             };
             $http({
@@ -61,8 +63,7 @@ angular.module('cncApp').factory('geonamesFactory',
                 params: request,
                 cache: true
             }).then(function(results) {
-                // console.log(results);
-                d.resolve(results.data.geonames);
+                d.resolve(results.data.geonames[0]);
             // }).error(function(){
             //     alert("An error occurred searching for '" + cityName + "'")
             });

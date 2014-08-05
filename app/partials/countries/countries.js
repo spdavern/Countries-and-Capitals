@@ -3,7 +3,7 @@ angular.module('cncApp').controller('countriesDataCtrl',
 	function($scope, cncData, $state, $stateParams){
 		$scope.countries = cncData.countries;
         $scope.gotoDetail = function(countryCode, index){
-            cncData.index = index;
+            cncData.country = $scope.countries[index];
             $state.go('countryDetail', 
                 {'countryCode': countryCode});
         }

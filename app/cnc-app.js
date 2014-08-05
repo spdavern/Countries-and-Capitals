@@ -40,7 +40,7 @@ myApp.factory('cncData', ['VERSION', 'geonamesFactory',
 	 	geonamesFactory.getCountriesInfo().then(function(result) {
 	 		return Data.countries = result;
 	 	});
-	 	Data.getCityInfo = geonamesFactory.getCityInfo;
+	 	Data.getCapitalInfo = geonamesFactory.getCapitalInfo;
 	 	Data.getNeighbors = geonamesFactory.getNeighbors;
 		return Data		
 }]);
