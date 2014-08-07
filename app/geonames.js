@@ -5,24 +5,22 @@ angular.module('cncApp').factory('geonamesFactory',
         var PrimaryUrl = "http://api.geonames.org/";
     return {
         getCountriesInfo: function(){
-            var d = $q.defer();
             var url = PrimaryUrl + "countryInfoJSON";
             var request = {
                 callback: 'JSON_CALLBACK',
                 username: username
             };
-            $http({
-                method: 'JSONP',
-                url: url,
-                params: request,
-                cache: true
-            }).then(function(results) {
-                for (i=0; i<results.data.geonames.length; i++) {
-                    results.data.geonames[i].i = i;
-                };
-                d.resolve(results.data.geonames);
-            });
-            return d.promise;
+            return $http({
+                    method: 'JSONP',
+                    url: url,
+                    params: request,
+                    cache: true
+                }).then(function(results) {
+                    for (i=0; i<results.data.geonames.length; i++) {
+                        results.data.geonames[i].i = i;
+                    };
+                    return results.data.geonames;
+                });
         },
         getNeighbors: function(countryCode){
             var url = PrimaryUrl + "neighboursJSON";

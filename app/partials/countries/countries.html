@@ -16,7 +16,7 @@
 			<tbody>
 	<!-- TODO: https://docs.angularjs.org/api/ng/filter/orderBy -->
 				<tr ng-repeat="country in countries | orderBy:'countryName'" ng-click="gotoDetail(country.countryCode, country.i)">
-					<td>{{country.i}}: {{country.countryName}}</td>
+					<td>{{country.countryName}}</td>
 					<td>{{country.capital}}</td>
 					<td class="text-right">{{country.areaInSqKm | number}}</td>
 					<td class="text-right">{{country.population | number}}</td>

@@ -10,8 +10,10 @@ angular.module('cncApp').controller('detailCtrl',
         cncData.getNeighbors($stateParams.countryCode.toUpperCase()).then(function(result){
             $scope.numNeighbors = result.data.totalResultsCount;
             $scope.neighborList = result.data.geonames;
-            for (i=0; i<$scope.neighborList.length; i++) {
-                $scope.neighborList[i].i = i;
+            if(typeof $scope.neighborList != 'undefined'){
+                for (i=0; i<$scope.neighborList.length; i++) {
+                    $scope.neighborList[i].i = i;
+                };
             };
         });
         $scope.gotoDetail = function(countryCode, index){

@@ -1,5 +1,5 @@
 var myApp = angular.module('cncApp', ['ui.router', 'ngAnimate']);
-myApp.constant('VERSION', "0.2");
+myApp.constant('VERSION', "0.3");
 myApp.run( ['$rootScope', '$state', '$stateParams',
 	function($rootScope, $state, $stateParams) {
 		//This initialization function enables button hiding.
@@ -28,18 +28,19 @@ myApp.config( ['$stateProvider', '$urlRouterProvider',
 			controller: 'detailCtrl'
 			})
 }]);
-myApp.controller('appCtrl', ['cncData',
-	function(cncData){
+myApp.controller('appCtrl', ['cncData', '$scope',
+	function(cncData, $scope){
 		//This controller instantiates cncData which causes the 
 		//initial GET of the countries data.
+		$scope.version = cncData.version;
 }]);
 myApp.factory('cncData', ['VERSION', 'geonamesFactory',
 	function(VERSION, geonamesFactory) {
 		var Data = {};
 	 	Data.version = VERSION;
-	 	geonamesFactory.getCountriesInfo().then(function(result) {
-	 		return Data.countries = result;
-	 	});
+	 	//Evaluate the getCountriesInfo function immediately.
+		Data.countries = geonamesFactory.getCountriesInfo();
+		//These other methods require parameters.
 	 	Data.getCapitalInfo = geonamesFactory.getCapitalInfo;
 	 	Data.getNeighbors = geonamesFactory.getNeighbors;
 		return Data		
