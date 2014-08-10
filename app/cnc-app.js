@@ -1,5 +1,5 @@
 var myApp = angular.module('cncApp', ['ui.router', 'ngAnimate']);
-myApp.constant('VERSION', "0.3");
+myApp.constant('VERSION', "1.0");
 myApp.run( ['$rootScope', '$state', '$stateParams',
 	function($rootScope, $state, $stateParams) {
 		//This initialization function enables button hiding.
@@ -33,6 +33,7 @@ myApp.controller('appCtrl', ['cncData', '$scope',
 		//This controller instantiates cncData which causes the 
 		//initial GET of the countries data.
 		$scope.version = cncData.version;
+		document.getElementById("BrowseCountries").focus();
 }]);
 myApp.factory('cncData', ['VERSION', 'geonamesFactory',
 	function(VERSION, geonamesFactory) {

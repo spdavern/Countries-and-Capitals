@@ -5,47 +5,61 @@ angular.module('cncApp').factory('geonamesFactory',
         var PrimaryUrl = "http://api.geonames.org/";
     return {
         getCountriesInfo: function(){
+            var d = $q.defer();
             var url = PrimaryUrl + "countryInfoJSON";
             var request = {
                 callback: 'JSON_CALLBACK',
                 username: username
             };
-            return $http({
-                    method: 'JSONP',
-                    url: url,
-                    params: request,
-                    cache: true
-                }).then(function(results) {
-                    for (i=0; i<results.data.geonames.length; i++) {
-                        results.data.geonames[i].i = i;
+            $http({
+                method: 'JSONP',
+                url: url,
+                params: request,
+                cache: true
+            }).success(function(data, status, headers, config) {
+                if(typeof data.status == 'object') {
+                    alert("Encountered and error requesting country data: \r\n'" +
+                        data.status.message + "'");
+                    d.reject(data.status)
+                } else {
+                    //Creating a countries index value pair: countryCode, 
+                    //index of the country in the countries array.
+                    data.index = {};
+                    for (i=0; i<data.geonames.length; i++) {
+                        data.index[data.geonames[i].countryCode]=i;
                     };
-                    return results.data.geonames;
-                });
+                    //Return both the index object and countries array:
+                    d.resolve(data)
+                }
+            }).error(function(data, status, headers, config) {
+                alert(status + " error attempting to access geonames.org.");
+                d.reject()
+            });
+            return d.promise;
         },
         getNeighbors: function(countryCode){
+            var d = $q.defer();
             var url = PrimaryUrl + "neighboursJSON";
             var request = {
                 callback: 'JSON_CALLBACK',
                 country: countryCode,
                 username: username
             };
-            return $http({
+            $http({
                 method: 'JSONP',
                 url: url,
                 params: request,
                 cache: true
-            }).success(function(results) {
-                return results;
-            }).error(function() {
-                return {
-                    totalResultsCount: 0
-                }
+            }).success(function(data, status, headers, config) {
+                d.resolve(data);
+            }).error(function(data, status, headers, config) {
+                alert(status + " error attempting to access geonames.org.");
+                d.reject()
             })
+            return d.promise;
         },
         getCapitalInfo: function(countryCode) {
             var d = $q.defer();
-            // encodedName = encodeURIComponent(cityName).replace("%20","+");
-            // console.log("'"+encodedName+"'");
             var url = PrimaryUrl + "searchJSON";
             var request = {
                 callback: 'JSON_CALLBACK',
@@ -60,10 +74,11 @@ angular.module('cncApp').factory('geonamesFactory',
                 url: url,
                 params: request,
                 cache: true
-            }).then(function(results) {
-                d.resolve(results.data.geonames[0]);
-            // }).error(function(){
-            //     alert("An error occurred searching for '" + cityName + "'")
+            }).success(function(data, status, headers, config){
+                d.resolve(data.geonames[0]);
+            }).error(function(data, status, headers, config){
+                alert(status + " error attempting to access geonames.org.");
+                d.reject()
             });
             return d.promise;
         }

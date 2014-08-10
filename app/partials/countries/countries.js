@@ -1,15 +1,15 @@
 angular.module('cncApp').controller('countriesDataCtrl', 
-	['$scope', 'cncData', '$state', '$stateParams', '$q',
-	function($scope, cncData, $state, $stateParams, $q){
+	['$scope', 'cncData', '$q',
+	function($scope, cncData, $q){
+		var toString = Object.prototype.toString;
 		//Bind the countries data onto $scope when it becomes available:
 	 	$q.when(cncData.countries).then(function(result){
-	 		$scope.countries = result;
+	 		//If cncData.countries is still a promise...
+	 		if(toString.call(cncData.countries)=='[object Object]') {
+	 			//...replace it with the returned array.
+	 			cncData.countries = result.geonames;
+	 			cncData.index = result.index;
+	 		}
+	 		$scope.countries = cncData.countries;
 	 	});
-        $scope.gotoDetail = function(countryCode, index){
-        	//Populate the country info into the cncData service:
-            cncData.country = $scope.countries[index];
-            //Then go to the route:
-            $state.go('countryDetail', 
-                {'countryCode': countryCode});
-        }
 }])

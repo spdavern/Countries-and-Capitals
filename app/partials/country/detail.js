@@ -1,23 +1,25 @@
 angular.module('cncApp').controller('detailCtrl', 
-    ['$scope', 'cncData', '$state', '$stateParams',
-    function($scope, cncData, $state, $stateParams){
-        $scope.country = cncData.country;
-        $scope.flag = $stateParams.countryCode.toLowerCase();
-        $scope.map = $stateParams.countryCode.toUpperCase();
-        cncData.getCapitalInfo($stateParams.countryCode.toUpperCase()).then(function(result){
+    ['$scope', 'cncData', '$state', '$stateParams', '$q',
+    function($scope, cncData, $state, $stateParams, $q){
+        var detailCountry = $stateParams.countryCode.toUpperCase();
+        //Get the countries data if not already available:
+        //This enables entering the app directly into a detail view.
+        $q.when(cncData.countries).then(function(result){
+            //If cncData.countries is still a promise...
+            if(toString.call(cncData.countries)=='[object Object]') {
+                //...replace it with the returned array.
+                cncData.countries = result.geonames;
+                cncData.index = result.index;
+            }
+            $scope.country = cncData.countries[cncData.index[detailCountry]];
+        });
+        $scope.flag = detailCountry.toLowerCase();
+        $scope.map = detailCountry;
+        cncData.getCapitalInfo(detailCountry).then(function(result){
             $scope.capital = result;
         });
-        cncData.getNeighbors($stateParams.countryCode.toUpperCase()).then(function(result){
-            $scope.numNeighbors = result.data.totalResultsCount;
-            $scope.neighborList = result.data.geonames;
-            if(typeof $scope.neighborList != 'undefined'){
-                for (i=0; i<$scope.neighborList.length; i++) {
-                    $scope.neighborList[i].i = i;
-                };
-            };
+        cncData.getNeighbors(detailCountry).then(function(result){
+            $scope.numNeighbors = result.totalResultsCount;
+            $scope.neighborList = result.geonames;
         });
-        $scope.gotoDetail = function(countryCode, index){
-            cncData.country = $scope.neighborList[index];
-            $state.go('countryDetail', {'countryCode':countryCode});
-        }
   }])

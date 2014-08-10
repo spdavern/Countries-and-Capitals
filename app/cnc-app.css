@@ -31,3 +31,6 @@ hr.style {
   width: 100%;
   text-align: center;
 }
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: LightSkyBlue;
+}
