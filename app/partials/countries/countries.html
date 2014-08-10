@@ -3,6 +3,9 @@
 	<div class="col-sm-1"></div>
 	<div class="col-sm-10">
 	<div class="row fixed-table">
+	<div class="input-group">
+		<label for="filter">Filter:&nbsp;</label><input id="filter" type="text" placeholder="Enter filter text">
+	</div>
 	<div class="table-content">
 		<table class="table table-bordered table-striped table-hover table-fixed-header" id="mytable">
 			<thead class="header">
@@ -13,7 +16,7 @@
 				<th>Continent</th>
 				<th>Currency</th>
 			</thead>
-			<tbody>
+			<tbody class="searchable">
 				<tr ng-repeat="country in countries | orderBy:'countryName'" ui-sref="countryDetail({countryCode: country.countryCode})">
 					<td id={{country.countryCode}}>{{country.countryName}}</td>
 					<td>{{country.capital}}</td>
