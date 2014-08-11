@@ -8,7 +8,7 @@ var rev = require('gulp-rev');
 var rimraf = require('gulp-rimraf');
 
 gulp.task('copy-html-files', function() {
-  gulp.src(['./app/**/*.html', './app/owm-cities.json', '!./app/index.html'], {base: './app'})
+  gulp.src(['./app/**/*.html', '!./app/index.html'], {base: './app'})
     .pipe(gulp.dest('build/'));
 });
 
@@ -24,6 +24,12 @@ gulp.task('usemin', function() {
 gulp.task('connect', function() {
   connect.server({
     root: 'app/'
+  });
+});
+
+gulp.task('runbuild', function(){
+  connect.server({
+    root: 'build/'
   });
 });
 
