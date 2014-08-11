@@ -12,6 +12,10 @@ gulp.task('copy-html-files', function() {
     .pipe(gulp.dest('build/'));
 });
 
+gulp.task('copy-img-folder', function(){
+  gulp.src(['./app/img/*.*'], {base: './app'}).pipe(gulp.dest('build/assets/'));
+});
+
 gulp.task('usemin', function() {
   gulp.src('./app/index.html')
     .pipe(usemin({
@@ -35,4 +39,4 @@ gulp.task('runbuild', function(){
 
 // Default Task
 gulp.task('default', ['connect']);
-gulp.task('build', ['copy-html-files', 'usemin']);
+gulp.task('build', ['copy-html-files', 'copy-img-folder', 'usemin']);
