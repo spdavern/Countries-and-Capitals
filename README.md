@@ -20,5 +20,4 @@ Thinkful AngularJS Unit 2 Lesson 2 Assignment 3
 
 ## Build deployable app:
 * Build munged, minified files: `gulp build`
-(Build places files in _assets folder which gh-pages has issues with - haven't been able to get gulp-usemin assetsDir option to work properly.)
 * Run built app locally: `gulp runbuild`
