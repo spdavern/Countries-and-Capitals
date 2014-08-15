@@ -1,5 +1,5 @@
 var myApp = angular.module('cncApp', ['ui.router', 'ngAnimate']);
-myApp.constant('VERSION', "1.2");
+myApp.constant('VERSION', "1.3");
 myApp.run( ['$rootScope', '$state', '$stateParams',
     function($rootScope, $state, $stateParams) {
         //This initialization function enables button hiding.
