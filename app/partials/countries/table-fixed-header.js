@@ -3,8 +3,7 @@
   $.fn.fixedHeader = function () {
  
     return this.each( function() {
-      var o = $(this)
-        , nhead = o.closest('.fixed-table');
+      var o = $(this), nhead = o.closest('.fixed-table');
  
       var $head = $('thead.header', o);
       

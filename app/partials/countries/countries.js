@@ -21,9 +21,9 @@ angular.module('cncApp').controller('countriesDataCtrl',
                 $('.searchable tr').filter(function () {
                     return rex.test($(this).text());
                 }).show();
-            })
+            });
         }(jQuery));
     });
     //Set focus onto input.
     document.getElementById("filter").focus();
-}])
+}]);

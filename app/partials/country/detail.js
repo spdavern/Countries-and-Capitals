@@ -22,4 +22,4 @@ angular.module('cncApp').controller('detailCtrl',
             $scope.numNeighbors = result.totalResultsCount;
             $scope.neighborList = result.geonames;
         });
-  }])
+  }]);

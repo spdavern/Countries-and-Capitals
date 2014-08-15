@@ -20,20 +20,20 @@ angular.module('cncApp').factory('geonamesFactory',
                 if(typeof data.status == 'object') {
                     alert("Encountered and error requesting country data: \r\n'" +
                         data.status.message + "'");
-                    d.reject(data.status)
+                    d.reject(data.status);
                 } else {
                     //Creating a countries index value pair: countryCode, 
                     //index of the country in the countries array.
                     data.index = {};
                     for (i=0; i<data.geonames.length; i++) {
                         data.index[data.geonames[i].countryCode]=i;
-                    };
+                    }
                     //Return both the index object and countries array:
-                    d.resolve(data)
+                    d.resolve(data);
                 }
             }).error(function(data, status, headers, config) {
                 alert(status + " error attempting to access geonames.org.");
-                d.reject()
+                d.reject();
             });
             return d.promise;
         },
@@ -54,8 +54,8 @@ angular.module('cncApp').factory('geonamesFactory',
                 d.resolve(data);
             }).error(function(data, status, headers, config) {
                 alert(status + " error attempting to access geonames.org.");
-                d.reject()
-            })
+                d.reject();
+            });
             return d.promise;
         },
         getCapitalInfo: function(countryCode) {
@@ -78,9 +78,9 @@ angular.module('cncApp').factory('geonamesFactory',
                 d.resolve(data.geonames[0]);
             }).error(function(data, status, headers, config){
                 alert(status + " error attempting to access geonames.org.");
-                d.reject()
+                d.reject();
             });
             return d.promise;
         }
     };
-}])
+}]);

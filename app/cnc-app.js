@@ -1,5 +1,5 @@
 var myApp = angular.module('cncApp', ['ui.router', 'ngAnimate']);
-myApp.constant('VERSION', "1.3");
+myApp.constant('VERSION', "1.4");
 myApp.run( ['$rootScope', '$state', '$stateParams',
     function($rootScope, $state, $stateParams) {
         //This initialization function enables button hiding.
@@ -26,7 +26,7 @@ myApp.config( ['$stateProvider', '$urlRouterProvider',
             url: "/countries/:countryCode",
             templateUrl: "partials/country/detail.html",
             controller: 'detailCtrl'
-            })
+            });
 }]);
 myApp.controller('appCtrl', ['cncData', '$scope',
     function(cncData, $scope){
@@ -44,5 +44,5 @@ myApp.factory('cncData', ['VERSION', 'geonamesFactory',
         //These other methods require parameters.
         Data.getCapitalInfo = geonamesFactory.getCapitalInfo;
         Data.getNeighbors = geonamesFactory.getNeighbors;
-        return Data     
+        return Data;  
 }]);
