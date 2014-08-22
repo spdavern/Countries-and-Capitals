@@ -9,6 +9,7 @@ Thinkful AngularJS Unit 2 Lesson 2 Assignment 3
 * Install npm: See https://github.com/npm/npm
 * Install Bower globally: `npm install -g bower`
 * Install Gulp globally: `npm install -g gulp`
+* Install Karma command line interface globally: `npm install -g karma-cli` (runs the project-local version of karma - <span>[Ref](http://karma-runner.github.io/0.12/intro/installation.html)</span>)
 
 ## Application specific:
 * Clone/Pull/Fork this repo
