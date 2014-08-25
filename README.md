@@ -18,6 +18,7 @@ Thinkful AngularJS Unit 2 Lesson 2 Assignment 3
 * Pull down app dependencies: `bower install`
 * Start Gulp server: `gulp`   this is equivalent to `gulp connect` because the 'connect' task is set as the default in gulpfile.js.
 * The app is now being served at http://localhost:8080
+* Start unit-test runner: `karma start`  Karma is now watching app and spec files and running unit tests upon update.
 
 ## Build deployable app:
 * Build munged, minified files: `gulp build`
